@@ -57,7 +57,7 @@ function generateUnapprovedSheets() {
             });
 
             // Add Approve button only for SPM
-            if (rowIndex !== 0 && currentUserRole === "SPM") {
+            if (rowIndex !== 0 && currentUserRole == "SPM") {
                 const actionsTd = document.createElement("td");
                 const approveBtn = document.createElement("button");
                 approveBtn.textContent = "Approve";
