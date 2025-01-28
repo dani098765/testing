@@ -1,5 +1,13 @@
-// Mock role to simulate login
-const currentUserRole = "SPM"; // Change to simulate other roles
+// Retrieve logged-in user information from sessionStorage
+const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+if (!loggedInUser) {
+    // Redirect to login page if no user is logged in
+    window.location.href = "index.html";
+}
+
+// Set the user's role dynamically from the logged-in user data
+const currentUserRole = loggedInUser.role;
 
 // Processed data with three rows for each brand and corresponding packings
 const processedData = {
@@ -55,6 +63,7 @@ function generateUnapprovedSheets() {
                 }
             });
 
+            // Add Approve button only if the logged-in user is SPM
             if (rowIndex !== 0 && currentUserRole === "SPM") {
                 const actionsTd = document.createElement("td");
                 const approveBtn = document.createElement("button");
@@ -124,6 +133,12 @@ function populateApprovedData() {
 
         approvedTable.appendChild(tr);
     });
+}
+
+// Logout Function
+function logout() {
+    sessionStorage.removeItem("loggedInUser");
+    window.location.href = "index.html";
 }
 
 // Initialize
