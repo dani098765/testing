@@ -1,23 +1,29 @@
-// Retrieve logged-in user information
-const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
-
-if (!loggedInUser) {
-    // Redirect to login if no user is logged in
-    window.location.href = "index.html";
-} else {
-    // Display user role or any specific information
-    console.log(`Welcome, ${loggedInUser.username} (${loggedInUser.role})!`);
-
-    // Example: Update the dashboard with user-specific information
-    document.body.innerHTML = `
-        <h1>Welcome, ${loggedInUser.role}</h1>
-        <p>Username: ${loggedInUser.username}</p>
-        <button onclick="logout()">Logout</button>
-    `;
-}
-
-// Logout function
-function logout() {
-    sessionStorage.removeItem("loggedInUser");
-    window.location.href = "index.html";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <div id="error-message" class="error"></div>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
