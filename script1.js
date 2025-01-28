@@ -1,3 +1,7 @@
+// Mock role to simulate login
+// Change "SPM" to simulate other roles
+const currentUserRole = "SPM"; // Simulate SPM login for testing
+
 // Processed data with three rows for each brand and corresponding packings
 const processedData = {
     "Avifloxin": [
@@ -52,14 +56,14 @@ function generateUnapprovedSheets() {
                 }
             });
 
-            if (rowIndex !== 0) {
+            // Add Approve button only for SPM
+            if (rowIndex !== 0 && currentUserRole === "SPM") {
                 const actionsTd = document.createElement("td");
                 const approveBtn = document.createElement("button");
                 approveBtn.textContent = "Approve";
                 approveBtn.className = "action";
                 approveBtn.onclick = () => approveRow(sheetName, row);
                 actionsTd.appendChild(approveBtn);
-
                 tr.appendChild(actionsTd);
             }
 
