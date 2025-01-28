@@ -1,6 +1,5 @@
 // Mock role to simulate login
-// Change "SPM" to simulate other roles
-const currentUserRole = "SPM"; // Simulate SPM login for testing
+const currentUserRole = "SPM"; // Change to simulate other roles
 
 // Processed data with three rows for each brand and corresponding packings
 const processedData = {
@@ -25,7 +24,7 @@ function showTab(tab) {
     document.getElementById("approved-tab").style.display = tab === "approved" ? "block" : "none";
 }
 
-// Generate Unapproved Data
+// Generate Unapproved Data Sheets
 function generateUnapprovedSheets() {
     const unapprovedContainer = document.getElementById("unapproved-container");
     unapprovedContainer.innerHTML = "";
@@ -56,8 +55,7 @@ function generateUnapprovedSheets() {
                 }
             });
 
-            // Add Approve button only for SPM
-            if (rowIndex !== 0 && currentUserRole == "SPM") {
+            if (rowIndex !== 0 && currentUserRole === "SPM") {
                 const actionsTd = document.createElement("td");
                 const approveBtn = document.createElement("button");
                 approveBtn.textContent = "Approve";
@@ -72,6 +70,29 @@ function generateUnapprovedSheets() {
 
         table.appendChild(tbody);
         unapprovedContainer.appendChild(table);
+    });
+}
+
+// Add New Record
+function addNewRecord() {
+    const unapprovedContainer = document.getElementById("unapproved-container");
+    const tables = unapprovedContainer.querySelectorAll("table");
+
+    tables.forEach((table) => {
+        const tbody = table.querySelector("tbody");
+        const newRow = document.createElement("tr");
+
+        const headers = Array.from(table.querySelector("tr").children).length;
+        for (let i = 0; i < headers; i++) {
+            const td = document.createElement("td");
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Enter data";
+            td.appendChild(input);
+            newRow.appendChild(td);
+        }
+
+        tbody.appendChild(newRow);
     });
 }
 
@@ -101,22 +122,8 @@ function populateApprovedData() {
             tr.appendChild(td);
         });
 
-        const actionsTd = document.createElement("td");
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.className = "action";
-        deleteBtn.onclick = () => deleteRecord(record);
-        actionsTd.appendChild(deleteBtn);
-
-        tr.appendChild(actionsTd);
         approvedTable.appendChild(tr);
     });
-}
-
-// Delete Data
-function deleteRecord(record) {
-    approvedRecords = approvedRecords.filter(r => r !== record);
-    populateApprovedData();
 }
 
 // Initialize
