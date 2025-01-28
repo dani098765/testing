@@ -35,6 +35,7 @@ body {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .form-group button {
@@ -45,6 +46,7 @@ body {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .form-group button:hover {
@@ -55,4 +57,21 @@ body {
     color: red;
     font-size: 0.9em;
     text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .login-container {
+        width: 90%; /* Make the container width adaptive to smaller screens */
+        padding: 15px; /* Adjust padding for smaller devices */
+    }
+
+    .form-group input, .form-group button {
+        padding: 8px; /* Reduce padding for inputs and buttons */
+        font-size: 0.9em; /* Adjust font size for better readability */
+    }
+
+    .login-container h2 {
+        font-size: 1.5em; /* Adjust heading size */
+    }
 }
