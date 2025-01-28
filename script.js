@@ -25,8 +25,11 @@ document.getElementById("login-form").addEventListener("submit", function (event
 
     if (user) {
         errorMessage.textContent = ""; // Clear error
-        console.log(`Logged in as: ${user.role}`);
-        // Redirect to dashboard.html
+
+        // Save user information to localStorage or sessionStorage
+        sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+
+        // Redirect to dashboard
         window.location.href = "dashboard.html";
     } else {
         errorMessage.textContent = "Invalid username or password.";
