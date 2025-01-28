@@ -18,13 +18,13 @@ let approvedRecords = [];
 // Show the relevant tab
 function showTab(tab) {
     document.getElementById("unapproved-tab").style.display = tab === "unapproved" ? "block" : "none";
-    document.getElementById("records-tab").style.display = tab === "records" ? "block" : "none";
+    document.getElementById("approved-tab").style.display = tab === "approved" ? "block" : "none";
 }
 
-// Generate Unapproved Data Sheets
+// Generate Unapproved Data
 function generateUnapprovedSheets() {
-    const sheetsContainer = document.getElementById("sheets-container");
-    sheetsContainer.innerHTML = "";
+    const unapprovedContainer = document.getElementById("unapproved-container");
+    unapprovedContainer.innerHTML = "";
 
     Object.entries(unapprovedData).forEach(([sheetName, rows]) => {
         const table = document.createElement("table");
@@ -67,22 +67,27 @@ function generateUnapprovedSheets() {
         });
 
         table.appendChild(tbody);
-        sheetsContainer.appendChild(table);
+        unapprovedContainer.appendChild(table);
     });
 }
 
-// Approve a row
+// Submit Data
+function submitData() {
+    alert("Data Submitted Successfully!");
+}
+
+// Approve Data
 function approveRow(sheetName, row) {
     approvedRecords.push(row);
     unapprovedData[sheetName] = unapprovedData[sheetName].filter(r => r !== row);
     generateUnapprovedSheets();
-    populateRecordsTable();
+    populateApprovedData();
 }
 
-// Populate the Records Table
-function populateRecordsTable() {
-    const recordsTable = document.getElementById("records-table").querySelector("tbody");
-    recordsTable.innerHTML = "";
+// Populate Approved Data
+function populateApprovedData() {
+    const approvedTable = document.getElementById("approved-table").querySelector("tbody");
+    approvedTable.innerHTML = "";
 
     approvedRecords.forEach((record) => {
         const tr = document.createElement("tr");
@@ -100,14 +105,14 @@ function populateRecordsTable() {
         actionsTd.appendChild(deleteBtn);
 
         tr.appendChild(actionsTd);
-        recordsTable.appendChild(tr);
+        approvedTable.appendChild(tr);
     });
 }
 
-// Delete a record
+// Delete Data
 function deleteRecord(record) {
     approvedRecords = approvedRecords.filter(r => r !== record);
-    populateRecordsTable();
+    populateApprovedData();
 }
 
 // Initialize
